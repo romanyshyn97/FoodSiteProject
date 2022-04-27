@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded' , ()=>{
     function hideTabContent(){
         tabsContent.forEach(item=>{
             item.classList.add('hide');
-            item.classList.remove('show');
+            item.classList.remove('show', 'fade');
         });
 
         tabs.forEach(item=>{
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded' , ()=>{
     }
 
     function showTabContent(i = 0){
-        tabsContent[i].classList.add('show');
+        tabsContent[i].classList.add('show', 'fade');
         tabsContent[i].classList.remove('hide');
         tabs[i].classList.add('tabheader__item_active');
     }
@@ -95,4 +95,37 @@ window.addEventListener('DOMContentLoaded' , ()=>{
     }
 
     setClock('.timer', deadline );
+
+    //Modal window
+
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+          modal = document.querySelector('.modal'),
+          modalCloseBtn = document.querySelector('[data-close]');
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', ()=>{
+            modal.classList.add('show');
+            modal.classList.remove('hide');
+            document.body.style.overflow = 'hidden'; //убирает скролл при открытой модалке
+        });
+    });
+    
+    function closeModal(){
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+        if(e.target === modal){
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {  // close Modal by click on esc
+        if(e.code === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
 });
