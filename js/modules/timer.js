@@ -1,5 +1,4 @@
-function timer(){
-    const deadline = '2022-06-06'
+function timer(idTimer, deadline){
 
     function getTimeRemaining(endtime){
         const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -50,7 +49,8 @@ function timer(){
         }
     }
 
-    setClock('.timer', deadline );
+    setClock(idTimer , deadline );
 
 }
-module.exports = timer;
+
+export default timer;
